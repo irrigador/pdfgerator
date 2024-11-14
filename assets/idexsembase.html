@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Atestado Médico</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Gerador de PDF</h2>
+        <form id="atestadoForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" required>
+
+            <label for="data">Data:</label>
+            <input type="date" id="data" required>
+
+            <label for="hora">Hora:</label>
+            <input type="time" id="hora" required>
+
+            <label for="dias">Dias:</label>
+            <input type="number" id="dias" required>
+
+            <label for="codigo">Cod:</label>
+            <input type="text" id="codigo" required>
+
+            <button type="button" onclick="generatePDF()">Gerar PDF</button>
+        </form>
+    </div>
+
+    <script>
+        function generatePDF() {
+            try {
+                if (typeof window.jspdf === 'undefined') {
+                    console.error("A biblioteca jsPDF não foi carregada corretamente.");
+                    alert("Erro ao carregar a biblioteca jsPDF. Verifique a conexão com a internet.");
+                    return;
+                }
+
+                const nome = document.getElementById("nome").value;
+                const data = document.getElementById("data").value;
+                const hora = document.getElementById("hora").value;
+                const dias = document.getElementById("dias").value;
+                const codigo = document.getElementById("codigo").value;
+
+                if (!nome || !data || !hora || !dias || !codigo) {
+                    alert("Por favor, preencha todos os campos.");
+                    return;
+                }
+
+                const dataFormatada = new Date(data).toLocaleDateString("pt-BR");
+
+            const logoBase = '';
+
+
+            
+               const logoBase64  = '';
+                // Exemplo de logo
+                
+                
+                
+                const imagemBase64 = '';
+                
+                
+
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                doc.setFontSize(12);
+                doc.addImage(logoBase64, 'PNG', 70, 10, 75, 36);
+                 //doc.text("Policlínica Exemplo", 105, 40, null, null, "center");
+                //doc.setFontSize(10);
+                //doc.text("Rua Exemplo, 123 - Cidade, Estado", 105, 50, null, null, "center");
+                //doc.text("Telefone: (xx) xxxx-xxxx", 105, 55, null, null, "center");
+
+                doc.setFontSize(14);
+                doc.text("Atestado Médico", 105, 70, null, null, "center");
+
+                doc.setFontSize(12);
+                doc.text(`Atesto que atendi nesta data o(a) Sr(a) ${nome} às ${hora}hs, sendo`, 20, 90);
+                doc.text(`necessário o seu afastamento do local de trabalho ou escola por ${dias} dia(s), a partir`, 20, 100);
+                doc.text(`de ${dataFormatada}, tendo como causa do atendimento o código abaixo:`, 20, 110);
+                //doc.text(``, 20, 120);
+
+                doc.setFontSize(10);
+                doc.text(`CID: ${codigo}`, 72, 149);
+
+               // doc.text("Atenciosamente,", 20, 160);
+               // doc.text("________________________________________", 20, 180);
+               // doc.text("Assinatura do Médico", 20, 190);
+
+                doc.addImage(imagemBase64, 'PNG', 60, 150, 120, 60);
+                doc.addImage(imagemBase, 'PNG', );
+
+              
+
+                doc.save(`Atestado_${nome}.pdf`);
+            } catch (error) {
+                console.error("Erro ao gerar PDF:", error);
+                alert("Ocorreu um erro ao gerar o PDF. Verifique os dados preenchidos.");
+            }
+        }
+    </script>
+</body>
+</html>
